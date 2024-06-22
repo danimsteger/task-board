@@ -9,6 +9,7 @@ const closeButtonEl = $("#close");
 const taskSubmitEl = $("#add-task-close");
 const modal = $("#formModal");
 const lanes = $(".lane");
+const taskDisplayEl = $("#task-display");
 
 // Todo: create a function to generate a unique task id
 function generateTaskId(event) {
@@ -28,6 +29,7 @@ function createTaskCard(task) {
     .addClass("btn btn-danger delete")
     .text("Delete")
     .attr("data-task-id", task.id);
+  cardDeleteBtn.on("click", handleDeleteTask);
 
   //   cardDeleteBtn.on("click", handleDeleteTask);
 
@@ -125,7 +127,19 @@ function handleAddTask(event) {
 }
 
 // Todo: create a function to handle deleting a task
-function handleDeleteTask(event) {}
+function handleDeleteTask(event) {
+  const taskId = $(this).attr("data-task-id");
+  const tasks = readTasksFromStorage();
+
+  tasks.forEach((task) => {
+    if (task.id === taskId) {
+      tasks.splice(tasks.indexOf(task), 1);
+    }
+  });
+
+  saveTasksToStorage(tasks);
+  renderTaskList();
+}
 
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) {
@@ -148,6 +162,8 @@ $(document).ready(function () {});
 
 taskFormEl.on("submit", handleAddTask);
 closeButtonEl.click(closeModal);
+
+// taskDisplayEl.on("click", ".btn-delete-task", handleDeleteTask);
 
 $(document).ready(function () {
   renderTaskList();
