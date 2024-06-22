@@ -47,7 +47,28 @@ function createTaskCard(task) {
 }
 
 // Todo: create a function to render the task list and make cards draggable
-function renderTaskList() {}
+function renderTaskList() {
+  const tasks = readTasksFromStorage();
+
+  const todoList = $("#todo-cards");
+  todoList.empty();
+
+  const inProgressList = $("#in-progress-cards");
+  inProgressList.empty();
+
+  const doneList = $("#done-cards");
+  doneList.empty();
+
+  for (let task of tasks) {
+    if (task.status === "to-do") {
+      todoList.append(createTaskCard(task));
+    } else if (task.status === "in-progress") {
+      inProgressList.append(createTaskCard(task));
+    } else if (task.status === "done") {
+      doneList.append(createTaskCard(task));
+    }
+  }
+}
 
 // Todo: create a function to handle adding a new task
 function readTasksFromStorage() {
@@ -106,3 +127,12 @@ $(document).ready(function () {});
 
 taskFormEl.on("submit", handleAddTask);
 closeButtonEl.click(closeModal);
+
+$(document).ready(function () {
+  renderTaskList();
+
+  taskDueDateInputEl.datepicker({
+    changeMonth: true,
+    changeYear: true,
+  });
+});
