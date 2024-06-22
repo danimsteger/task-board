@@ -8,7 +8,7 @@ const taskFormEl = $("#task-form");
 const closeButtonEl = $("#close");
 const taskSubmitEl = $("#add-task-close");
 const modal = $("#formModal");
-const lanes = $(".lane");
+// const lanes = $(".lane");
 const taskDisplayEl = $("#task-display");
 
 // Todo: create a function to generate a unique task id
@@ -19,7 +19,7 @@ function generateTaskId(event) {
 // Todo: create a function to create a task card
 function createTaskCard(task) {
   const taskCard = $("<div>")
-    .addClass("draggable")
+    .addClass("card project-card my-3 draggable")
     .attr("data-task-id", task.id);
   const cardHeader = $("<div>").addClass("card-header h4").text(task.name);
   const cardBody = $("<div>").addClass("card-body");
@@ -30,8 +30,6 @@ function createTaskCard(task) {
     .text("Delete")
     .attr("data-task-id", task.id);
   cardDeleteBtn.on("click", handleDeleteTask);
-
-  //   cardDeleteBtn.on("click", handleDeleteTask);
 
   if (task.dueDate && task.status !== "done") {
     const now = dayjs();
@@ -75,6 +73,16 @@ function renderTaskList() {
   $(".draggable").draggable({
     opacity: 0.8,
     zIndex: 100,
+
+    helper: function (e) {
+      const original = $(e.target).hasClass("ui-draggable")
+        ? $(e.target)
+        : $(e.target).closest(".ui-draggable");
+
+      return original.clone().css({
+        width: original.outerWidth(),
+      });
+    },
   });
 }
 
@@ -127,7 +135,7 @@ function handleAddTask(event) {
 }
 
 // Todo: create a function to handle deleting a task
-function handleDeleteTask(event) {
+function handleDeleteTask() {
   const taskId = $(this).attr("data-task-id");
   const tasks = readTasksFromStorage();
 
@@ -144,11 +152,11 @@ function handleDeleteTask(event) {
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) {
   const tasks = readTasksFromStorage();
-  const taskId = ui.draggable[0].dataset.taskId;
+  const taskNum = ui.draggable[0].dataset.taskId;
   const newStatus = event.target.id;
 
   for (let task of tasks) {
-    if (task.id === taskId) {
+    if (task.id === taskNum) {
       task.status === newStatus;
     }
   }
@@ -173,7 +181,7 @@ $(document).ready(function () {
     changeYear: true,
   });
 
-  lanes.droppable({
+  $(".lane").droppable({
     accept: ".draggable",
     drop: handleDrop,
   });
