@@ -17,8 +17,13 @@ body {
 
 .form-inputs {
   list-style: none;
+  margin: 1.5rem;
 }
 
 .drop-area {
   min-height: 60vh;
+}
+
+label {
+  margin-bottom: 1rem;
 }

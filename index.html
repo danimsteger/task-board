@@ -58,41 +58,51 @@
                 &times;
               </button>
             </div>
-            <div class="modal-body">
-              <ul>
-                <li class="form-inputs">
-                  <input
-                    id="task-name-input"
-                    type="text"
-                    class="form-control"
-                    placeholder="Task Title"
-                    aria-label="Task Title"
-                  />
-                </li>
-                <li class="form-inputs">
-                  <input
-                    placeholder="Task Due Date"
-                    autocomplete="off"
-                    type="text"
-                    class="form-control mb-3"
-                    id="task-due-date"
-                  />
-                </li>
-                <li class="form-inputs">
-                  <input
+            <div class="modal-body container-fluid">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="task-name-input">Task Title</label>
+                    <input
+                      id="task-name-input"
+                      type="text"
+                      class="form-control"
+                      placeholder="Task Title"
+                      aria-label="Task Title"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="task-due-date">Task Due Date</label>
+                    <input
+                      placeholder="Task Due Date"
+                      autocomplete="off"
+                      type="text"
+                      class="form-control mb-3"
+                      id="task-due-date"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-10 form-inputs">
+                  <label>Task Description</label>
+                  <textarea
                     placeholder="Description of Task"
                     autocomplete="off"
-                    type="textarea"
                     class="form-control"
                     id="task-description"
-                  />
-                </li>
-              </ul>
+                    rows="3"
+                    cols=""
+                  ></textarea>
+                </div>
+              </div>
             </div>
             <div class="modal-footer">
               <button
                 type="submit"
-                class="btn btn-default"
+                class="btn btn-default border-light bg-success text-white mx-auto"
                 data-dismiss="modal"
                 id="add-task-close"
               >
