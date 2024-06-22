@@ -8,7 +8,6 @@ const taskFormEl = $("#task-form");
 const closeButtonEl = $("#close");
 const taskSubmitEl = $("#add-task-close");
 const modal = $("#formModal");
-// const lanes = $(".lane");
 const taskDisplayEl = $("#task-display");
 
 // Todo: create a function to generate a unique task id
@@ -72,7 +71,7 @@ function renderTaskList() {
 
   $(".draggable").draggable({
     opacity: 0.8,
-    zIndex: 100,
+    zIndex: 50,
 
     helper: function (e) {
       const original = $(e.target).hasClass("ui-draggable")
@@ -157,16 +156,16 @@ function handleDrop(event, ui) {
 
   for (let task of tasks) {
     if (task.id === taskNum) {
-      task.status === newStatus;
+      task.status = newStatus;
     }
   }
 
   localStorage.setItem("tasks", JSON.stringify(tasks));
   renderTaskList();
+  console.log("this is working");
 }
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
-$(document).ready(function () {});
 
 taskFormEl.on("submit", handleAddTask);
 closeButtonEl.click(closeModal);
@@ -184,5 +183,6 @@ $(document).ready(function () {
   $(".lane").droppable({
     accept: ".draggable",
     drop: handleDrop,
+    activeClass: "ui-state-highlight",
   });
 });

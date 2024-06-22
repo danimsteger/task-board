@@ -7,14 +7,18 @@ body {
   min-height: 60vh;
 }
 
-.task-card {
+.taskCard {
   margin: 0 auto;
 }
 
-.task-card:hover {
+.taskCard:hover {
   cursor: grab;
 }
 
 .form-inputs {
   list-style: none;
+}
+
+.drop-area {
+  min-height: 60vh;
 }
